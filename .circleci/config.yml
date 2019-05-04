@@ -72,14 +72,15 @@ jobs:
   dockerise:
     executor: my-executor
 
-    setup_remote_docker:
-        docker_layer_caching:
-
     steps:
+
+      - setup_remote_docker:
+          docker_layer_caching: true
+
       - attach_workspace:
           at: ~/
 
-    - run: |
+      - run: |
         TAG=0.1.$CIRCLE_BUILD_NUM
         docker build -t $DOCKER_REPO:$TAG .
         docker login -u $DOCKER_USER -p $DOCKER_PASS
