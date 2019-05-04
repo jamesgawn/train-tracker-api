@@ -19,7 +19,7 @@ let errorRouter = new ErrorRouter(Express.Router(), log)
 app.use(errorRouter.errorHandler.bind(errorRouter))
 
 app.listen(port, () => {
-  console.log(`App listening on port ${port}!`)
+  log.info(`Train Tracker APIs are listening on port ${port}!`)
 })
 
 function normalizePort (val) {

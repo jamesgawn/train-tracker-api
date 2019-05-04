@@ -2,8 +2,9 @@
   "name": "train-tracker-api",
   "version": "1.0.0",
   "description": "A set of restful APIs to supply realtime national rail data.",
-  "main": "index.js",
+  "ya": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "nyc mocha --recursive --timeout=10000 --exit --reporter mocha-junit-reporter --reporter-options mochaFile=reports/mocha/test-results.xml",
     "coverage": "nyc report --reporter=html --check-coverage",
     "lint": "standard"
