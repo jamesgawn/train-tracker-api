@@ -72,7 +72,7 @@ jobs:
   dockerise:
     executor: my-executor
 
-    - setup_remote_docker:
+    setup_remote_docker:
         docker_layer_caching:
 
     steps:
