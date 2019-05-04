@@ -1,0 +1,82 @@
+version: 2.1
+
+executors:
+  my-executor:
+    docker:
+      - image: circleci/node:10.15.3
+    working_directory: ~/repo
+
+jobs:
+  build:
+    executor: my-executor
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run:
+          name: Install Depedancies
+          command: yarn install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - repo
+
+  test:
+    executor: my-executor
+
+    steps:
+      - attach_workspace:
+          at: ~/
+
+      # Run mocha
+      - run:
+          name: Tests
+          command: yarn test
+          when: always
+
+      - run:
+          name: Code Test Coveration
+          command: yarn coverage
+          when: always
+
+      - store_test_results:
+          path: ./reports
+
+      - store_artifacts:
+          path: ./coverage
+
+  lint:
+    executor: my-executor
+
+    steps:
+      - attach_workspace:
+          at: ~/
+
+      - run:
+          name: Code Formatting Check
+          command: yarn lint
+          when: always
+
+workflows:
+  version: 2.1
+  build-test-lint:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - lint:
+          requires:
+            - build
