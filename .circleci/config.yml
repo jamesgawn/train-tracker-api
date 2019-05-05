@@ -80,16 +80,12 @@ jobs:
       - checkout
 
       - run:
-          name: Create Docker Tag Name
-          command: $TAG=0.1.$CIRCLE_BUILD_NUM
-
-      - run:
           name: Build Docker Container With Version Tag
-          command: docker build -t $DOCKER_REPO:$TAG .
+          command: docker build -t $DOCKER_REPO:0.1.$CIRCLE_BUILD_NUM .
 
       - run:
           name: Update Latest Tag With New Version
-          command: docker tag $DOCKER_REPO:$TAG $DOCKER_REPO:latest
+          command: docker tag $DOCKER_REPO:0.1.$CIRCLE_BUILD_NUM $DOCKER_REPO:latest
 
       - run:
           name: Login To Docker
@@ -97,7 +93,7 @@ jobs:
 
       - run:
           name: Push Versioned Docker Container
-          command: docker push $DOCKER_REPO:$TAG
+          command: docker push $DOCKER_REPO:0.1.$CIRCLE_BUILD_NUM
 
       - run:
           name: Push Latest Docker Container Update
