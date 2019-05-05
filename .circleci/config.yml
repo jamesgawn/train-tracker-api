@@ -100,7 +100,7 @@ jobs:
         name: Push Versioned Docker Container
         command: docker push $DOCKER_REPO:$TAG
 
-      -run:
+      - run:
         name: Push Latest Docker Container Update
         command: docker push $DOCKER_REPO:latest
 
