@@ -85,6 +85,7 @@ jobs:
           docker build -t $DOCKER_REPO:$TAG .
           docker login -u $DOCKER_USER -p $DOCKER_PASS
           docker push $DOCKER_REPO:$TAG
+          docker tag $DOCKER_REPO:latest $DOCKER_REPO:$TAG
 
 workflows:
   version: 2.1
