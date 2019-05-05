@@ -81,28 +81,28 @@ jobs:
           at: ~/
 
       - run:
-        name: Create Docker Tag Name
-        command: TAG=0.1.$CIRCLE_BUILD_NUM
+          name: Create Docker Tag Name
+          command: TAG=0.1.$CIRCLE_BUILD_NUM
 
       - run:
-        name: Build Docker Container With Version Tag
-        command: docker build -t $DOCKER_REPO:$TAG .
+          name: Build Docker Container With Version Tag
+          command: docker build -t $DOCKER_REPO:$TAG .
 
       - run:
-        name: Update Latest Tag With New Version
-        command: docker tag $DOCKER_REPO:$TAG $DOCKER_REPO:latest
+          name: Update Latest Tag With New Version
+          command: docker tag $DOCKER_REPO:$TAG $DOCKER_REPO:latest
 
       - run:
-        name: Login To Docker
-        command: docker login -u $DOCKER_USER -p $DOCKER_PASS
+          name: Login To Docker
+          command: docker login -u $DOCKER_USER -p $DOCKER_PASS
 
       - run:
-        name: Push Versioned Docker Container
-        command: docker push $DOCKER_REPO:$TAG
+          name: Push Versioned Docker Container
+          command: docker push $DOCKER_REPO:$TAG
 
       - run:
-        name: Push Latest Docker Container Update
-        command: docker push $DOCKER_REPO:latest
+          name: Push Latest Docker Container Update
+          command: docker push $DOCKER_REPO:latest
 
 workflows:
   version: 2.1
