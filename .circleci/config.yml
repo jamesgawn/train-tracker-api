@@ -77,12 +77,11 @@ jobs:
       - setup_remote_docker:
           docker_layer_caching: true
 
-      - attach_workspace:
-          at: ~/
+      - checkout
 
       - run:
           name: Create Docker Tag Name
-          command: TAG=0.1.$CIRCLE_BUILD_NUM
+          command: $TAG=0.1.$CIRCLE_BUILD_NUM
 
       - run:
           name: Build Docker Container With Version Tag
