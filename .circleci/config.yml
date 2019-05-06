@@ -107,6 +107,10 @@ jobs:
     executor: my-executor
 
     steps:
+      - awscli/install
+
+      - awscli/configure
+
       - run:
           command: aws ssm send-command --document-name train-tracker-api-upgrade --targets Key=tag:Name,Values=train-tracker-api
 
