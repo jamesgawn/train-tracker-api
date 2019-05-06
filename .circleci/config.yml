@@ -1,8 +1,5 @@
 version: 2.1
 
-orbs:
-  aws-cli: circleci/aws-cli@0.1.13
-
 executors:
   my-executor:
     docker:
@@ -104,12 +101,12 @@ jobs:
 
   deploy:
 
-    executor: my-executor
+    docker:
+      - image: jamesgawn/awscli
+
+    working_directory: /data
 
     steps:
-      - aws-cli/install
-
-      - aws-cli/configure
 
       - run:
           command: aws ssm send-command --document-name train-tracker-api-upgrade --targets Key=tag:Name,Values=train-tracker-api
