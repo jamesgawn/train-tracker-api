@@ -117,7 +117,7 @@ resource "aws_ssm_document" "deploy-update" {
             "runCommand": ["sudo docker rm train-tracker-api"]
           },          {
             "id": "0.aws:runShellScript",
-            "runCommand": ["sudo docker run -p 80:3000 --log-driver=awslogs --log-opt=awslogs-group=train-tracker-api --log-opt=awslogs-create-group=true --name train-tracker-api -detach jamesgawn/train-tracker-api"]
+            "runCommand": ["sudo docker run -p 80:3000 --log-driver=awslogs --log-opt=awslogs-group=train-tracker-api --log-opt=awslogs-create-group=true --name train-tracker-api --restart always -detach jamesgawn/train-tracker-api"]
           }
         ]
       }
