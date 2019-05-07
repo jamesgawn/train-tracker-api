@@ -5,13 +5,16 @@ chai.use(sinonChai)
 const sinon = require('sinon')
 const expect = require('chai').expect
 const ErrorRouter = require('../../routers/error-router')
-const LogHelper = require('../../helpers/log-builder')
 
 describe('ErrorRouter', () => {
   let router
   let parentLog
   let log
   let errorRouter
+  let responseSender
+  let next
+  let res
+  let req
 
   beforeEach(() => {
     router = {
@@ -20,13 +23,24 @@ describe('ErrorRouter', () => {
       use: sinon.fake()
     }
     log = {
-      info: sinon.spy(),
-      error: sinon.spy()
     }
     parentLog = {
       child: sinon.fake.returns(log)
     }
+    responseSender = {
+      error: sinon.fake(),
+      notFound: sinon.fake()
+    }
+    req = {
+      params: {
+        crsCode: 'GNW'
+      },
+      url: '/bas'
+    }
+    res = {}
+    next = sinon.spy()
     errorRouter = new ErrorRouter(router, parentLog)
+    errorRouter._responseSender = responseSender
   })
 
   describe('constructor', () => {
@@ -39,35 +53,28 @@ describe('ErrorRouter', () => {
     })
   })
 
-  describe('errorHandler', () => {
+  describe('uncaughtErrorHandler', () => {
     it('should log error and respond with error json response', async () => {
-      let req = {
-        baseUrl: undefined,
-        headers: undefined,
-        httpVersion: undefined,
-        method: undefined,
-        originalUrl: undefined,
-        params: {
-          crsCode: 'GNW'
-        },
-        query: undefined,
-        url: undefined
-      }
-      let res = {}
-      let responseSender = {
-        error: sinon.fake()
-      }
       let err = {
         error: true
       }
-      errorRouter._responseSender = responseSender
-      let next = sinon.spy()
-      await errorRouter.errorHandler(err, req, res, next)
-      expect(log.error).to.be.calledWithExactly(LogHelper.wrap('error', {
-        req: req,
-        err: err
-      }))
-      expect(responseSender.error).to.be.calledWithExactly(res, err)
+
+      await errorRouter.uncaughtErrorHandler(err, req, res, next)
+      expect(responseSender.error).to.be.calledWithExactly('uncaughtErrorHandler', req, res, err)
+      expect(next.callCount).to.be.equal(1)
+    })
+  })
+  describe('uriNotFound', () => {
+    it('should respond with not found for uri not configured', async () => {
+      res.finished = false
+      await errorRouter.uriNotFound(req, res, next)
+      expect(responseSender.notFound).to.be.calledWithExactly('uriNotFound', req, res, 'The URI /bas is invalid.')
+      expect(next.callCount).to.be.equal(1)
+    })
+    it('should not attempt to respond with not found when response already processed', async () => {
+      res.finished = true
+      await errorRouter.uriNotFound(req, res, next)
+      expect(responseSender.notFound.callCount).to.be.equal(0)
       expect(next.callCount).to.be.equal(1)
     })
   })

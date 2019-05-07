@@ -1,5 +1,4 @@
 const BaseRouter = require('./base-rail-router')
-const LogBuilder = require('../helpers/log-builder')
 
 class StationRouter extends BaseRouter {
   constructor (router, log, rail) {
@@ -13,18 +12,14 @@ class StationRouter extends BaseRouter {
       let crsCode = req.params.crsCode
       let stations = await this._rail.getStationDetails(crsCode)
       if (stations.length > 0) {
-        this._log.info(LogBuilder.wrapRequestWithMessage('Retrieved station ' + crsCode, req))
-        this._responseSender.success(res, stations)
+        this._responseSender.success('getStation', req, res, stations)
       } else {
-        let message = 'Unable to find station ' + crsCode
-        this._log.info(LogBuilder.wrapRequestWithMessage(message, req))
-        this._responseSender.notFound(res, message)
+        let msg = 'Unable to find station ' + crsCode
+        this._responseSender.notFound('getStation', req, res, msg)
       }
       next()
     } catch (err) {
-      let message = 'Unable to find station'
-      this._log.error(LogBuilder.wrapRequestError(message, req, err))
-      this._responseSender.error(res, message)
+      this._responseSender.error('getStation', req, res, err)
       next()
     }
   }

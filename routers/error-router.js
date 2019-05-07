@@ -1,17 +1,19 @@
 const BaseRouter = require('./base-router')
-const LogHelper = require('../helpers/log-builder')
 
 class ErrorRouter extends BaseRouter {
   constructor (router, log) {
     super(router, log, 'error-router')
   }
 
-  errorHandler (err, req, res, next) {
-    this._log.error(LogHelper.wrap('error', {
-      req: req,
-      err: err
-    }))
-    this._responseSender.error(res, err)
+  uncaughtErrorHandler (err, req, res, next) {
+    this._responseSender.error('uncaughtErrorHandler', req, res, err)
+    next()
+  }
+
+  uriNotFound (req, res, next) {
+    if (!res.finished) {
+      this._responseSender.notFound('uriNotFound', req, res, 'The URI ' + req.url + ' is invalid.')
+    }
     next()
   }
 }

@@ -5,7 +5,6 @@ chai.use(sinonChai)
 const sinon = require('sinon')
 const expect = require('chai').expect
 const StationRouter = require('../../routers/station-router')
-const LogHelper = require('../../helpers/log-builder')
 
 describe('StationRouter', () => {
   let router
@@ -69,8 +68,7 @@ describe('StationRouter', () => {
       let next = sinon.spy()
       await stationRouter._getStation(req, res, next)
       expect(rail.getStationDetails).to.be.calledWithExactly('GNW')
-      expect(log.info).to.be.calledWithExactly(LogHelper.wrapRequestWithMessage('Retrieved station GNW', req))
-      expect(responseSender.success).to.be.calledWithExactly(res, expectedResult)
+      expect(responseSender.success).to.be.calledWithExactly('getStation', req, res, expectedResult)
       expect(next.callCount).to.be.equal(1)
     })
     it('should respond with 404 error for invalid station', async () => {
@@ -84,8 +82,7 @@ describe('StationRouter', () => {
       let next = sinon.spy()
       await stationRouter._getStation(req, res, next)
       expect(rail.getStationDetails).to.be.calledWithExactly('BLAH')
-      expect(log.info).to.be.calledWithExactly(LogHelper.wrapRequestWithMessage('Unable to find station BLAH', req))
-      expect(responseSender.notFound).to.be.calledWithExactly(res, 'Unable to find station BLAH')
+      expect(responseSender.notFound).to.be.calledWithExactly('getStation', req, res, 'Unable to find station BLAH')
       expect(next.callCount).to.be.equal(1)
     })
     it('should respond with 500 error when exception occurs', async () => {
@@ -102,8 +99,7 @@ describe('StationRouter', () => {
       let next = sinon.spy()
       await stationRouter._getStation(req, res, next)
       expect(rail.getStationDetails).to.be.calledWithExactly('BLAH')
-      expect(log.error).to.be.calledWithExactly(LogHelper.wrapRequestError('Unable to find station', req, err))
-      expect(responseSender.error).to.be.calledWithExactly(res, 'Unable to find station')
+      expect(responseSender.error).to.be.calledWithExactly('getStation', req, res, err)
       expect(next.callCount).to.be.equal(1)
     })
   })

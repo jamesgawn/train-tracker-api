@@ -8,7 +8,9 @@ const port = normalizePort(process.env.PORT || '3000')
 
 const Bunyan = require('bunyan')
 let log = new Bunyan({
-  name: 'train-tracker-api'
+  name: 'train-tracker-api',
+  serializers: Bunyan.stdSerializers,
+  src: true
 })
 
 const StationRouter = require('./routers/station-router')
@@ -16,7 +18,8 @@ app.use('/station', new StationRouter(Express.Router(), log, rail).router)
 
 const ErrorRouter = require('./routers/error-router')
 let errorRouter = new ErrorRouter(Express.Router(), log)
-app.use(errorRouter.errorHandler.bind(errorRouter))
+app.use(errorRouter.uncaughtErrorHandler.bind(errorRouter))
+app.use(errorRouter.uriNotFound.bind(errorRouter))
 
 app.listen(port, () => {
   log.info(`Train Tracker APIs are listening on port ${port}!`)

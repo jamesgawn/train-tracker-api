@@ -5,7 +5,7 @@ chai.use(sinonChai)
 const sinon = require('sinon')
 const expect = require('chai').expect
 const BaseRouter = require('../../routers/base-router')
-// const LogBuilder = require('../../helpers/log-builder')
+const ResponseSender = require('../../helpers/response-sender')
 
 describe('BaseRouter', () => {
   let router
@@ -36,6 +36,7 @@ describe('BaseRouter', () => {
         module: 'test'
       })
       expect(baseRouter._log).to.deep.equal(log)
+      expect(baseRouter._responseSender).to.deep.equal(new ResponseSender(baseRouter._log))
     })
   })
 })
