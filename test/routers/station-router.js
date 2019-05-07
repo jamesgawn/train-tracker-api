@@ -56,10 +56,10 @@ describe('StationRouter', () => {
 
   describe('_getStation', () => {
     it('should respond with station details for valid station', async () => {
-      let expectedResult = {
+      let expectedResult = [{
         pies: true
-      }
-      rail.getStationDetails = sinon.stub().resolves([expectedResult])
+      }]
+      rail.getStationDetails = sinon.stub().resolves(expectedResult)
       let req = {
         params: {
           crsCode: 'GNW'

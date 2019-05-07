@@ -14,7 +14,7 @@ class StationRouter extends BaseRouter {
       let stations = await this._rail.getStationDetails(crsCode)
       if (stations.length > 0) {
         this._log.info(LogBuilder.wrapRequestWithMessage('Retrieved station ' + crsCode, req))
-        this._responseSender.success(res, stations[0])
+        this._responseSender.success(res, stations)
       } else {
         let message = 'Unable to find station ' + crsCode
         this._log.info(LogBuilder.wrapRequestWithMessage(message, req))
