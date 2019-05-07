@@ -13,6 +13,10 @@ variable "circleci-iam-username" {
   default = "circleci"
 }
 
+variable "domain" {
+  type = "string"
+}
+
 provider "aws" {
   region  = "${var.region}"
   profile = "${var.profile}"
@@ -168,4 +172,24 @@ EOF
 resource "aws_iam_user_policy_attachment" "circel-ci-deploy-access-attachment" {
   user = "${var.circleci-iam-username}"
   policy_arn = "${aws_iam_policy.circle-ci-deploy-access.arn}"
+}
+
+data "aws_route53_zone" "domain-root" {
+  name = "${var.domain}"
+}
+
+resource "aws_route53_record" "api-dns-a-record" {
+  name = "api.train-tracker.${var.domain}"
+  type = "A"
+  zone_id = "${data.aws_route53_zone.domain-root.zone_id}"
+  ttl = "600"
+  records = ["${aws_instance.server.public_ip}"]
+}
+
+resource "aws_route53_record" "api-dns-aaaa-record" {
+  name = "api.train-tracker.${var.domain}"
+  type = "AAAA"
+  zone_id = "${data.aws_route53_zone.domain-root.zone_id}"
+  ttl = "600"
+  records = ["${aws_instance.server.ipv6_addresses}"]
 }
