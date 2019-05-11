@@ -1,6 +1,6 @@
-const BaseRouter = require('./base-rail-router')
+const BaseRailRouter = require('./base-rail-router')
 
-class StationRouter extends BaseRouter {
+class StationRouter extends BaseRailRouter {
   constructor (router, log, rail) {
     super(router, log, 'station-router', rail)
 
