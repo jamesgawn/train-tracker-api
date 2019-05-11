@@ -6,11 +6,15 @@ const rail = new NationallRailDarwinPromise()
 
 const port = normalizePort(process.env.PORT || '3000')
 
+const fs = require('fs')
+let version = fs.readFileSync('VERSION').toString()
+
 const Bunyan = require('bunyan')
 let log = new Bunyan({
   name: 'train-tracker-api',
   serializers: Bunyan.stdSerializers,
-  src: true
+  src: true,
+  version: version
 })
 
 const StationRouter = require('./routers/station-router')

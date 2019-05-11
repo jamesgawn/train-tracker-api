@@ -20,6 +20,10 @@ jobs:
             - v1-dependencies-
 
       - run:
+          name: Inject Version
+          command: echo 0.1.$CIRCLE_BUILD_NUM > VERSION
+
+      - run:
           name: Install Depedancies
           command: yarn install
 

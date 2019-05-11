@@ -7,6 +7,7 @@ COPY helpers helpers
 COPY package.json package.json
 COPY index.js .
 COPY yarn.lock yarn.lock
+COPY VERSION .
 
 RUN yarn install --production
 
