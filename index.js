@@ -34,23 +34,17 @@ const AWSHelper = require('./helpers/aws-helper')
 const ConfigHelper = require('./helpers/config-helper')
 let configHelper = new ConfigHelper(log, new AWSHelper())
 
-Promise.all([configHelper.get('/train-tracker-api/darwin-token')]).then((result) => {
-  const NationalRailDarwinPromise = require('national-rail-darwin-promise')
-  const rail = new NationalRailDarwinPromise(result[0])
+const NationalRailDarwinPromise = require('national-rail-darwin-promise')
+const rail = new NationalRailDarwinPromise(configHelper.get('DARWIN_TOKEN'))
 
-  const StationRouter = require('./routers/station-router')
-  app.use('/station', new StationRouter(Express.Router(), log, rail).router)
+const StationRouter = require('./routers/station-router')
+app.use('/station', new StationRouter(Express.Router(), log, rail).router)
 
-  const ErrorRouter = require('./routers/error-router')
-  let errorRouter = new ErrorRouter(Express.Router(), log)
-  app.use(errorRouter.uncaughtErrorHandler.bind(errorRouter))
-  app.use(errorRouter.uriNotFound.bind(errorRouter))
+const ErrorRouter = require('./routers/error-router')
+let errorRouter = new ErrorRouter(Express.Router(), log)
+app.use(errorRouter.uncaughtErrorHandler.bind(errorRouter))
+app.use(errorRouter.uriNotFound.bind(errorRouter))
 
-  app.listen(port, () => {
-    log.info(`Started listening on port ${port}!`)
-  })
-}).catch((err) => {
-  log.fatal({
-    err: err
-  })
+app.listen(port, () => {
+  log.info(`Started listening on port ${port}!`)
 })

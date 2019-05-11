@@ -101,38 +101,24 @@ resource "aws_instance" "server" {
 resource "aws_ssm_document" "deploy-update" {
   name          = "train-tracker-api-upgrade"
   document_type = "Command"
+  document_format = "YAML"
 
   content = <<DOC
-  {
-    "schemaVersion": "1.2",
-    "description": "Update the train tracker api server to the latest docker image",
-    "parameters": {
-
-    },
-    "runtimeConfig": {
-      "aws:runShellScript": {
-        "properties": [
-          {
-            "id": "0.aws:runShellScript",
-            "runCommand": ["sudo docker stop train-tracker-api"]
-          },
-          {
-            "id": "0.aws:runShellScript",
-            "runCommand": ["sudo docker rm train-tracker-api"]
-          },
-          {
-            "id": "0.aws:runShellScript",
-            "runCommand": ["sudo docker pull jamesgawn/train-tracker-api"]
-          },
-          {
-            "id": "0.aws:runShellScript",
-            "runCommand": ["sudo docker run -p 80:3000 --log-driver=awslogs --log-opt=awslogs-group=train-tracker-api --log-opt=awslogs-create-group=true --name train-tracker-api --restart always -detach jamesgawn/train-tracker-api"]
-          }
-        ]
-      }
-    }
-  }
-DOC
+  schemaVersion: '2.2'
+  description: Update the train tracker api server to the latest docker image
+  parameters: {}
+  mainSteps:
+  - action: aws:runShellScript
+    name: updateDockerContainer
+    inputs:
+      runCommand:
+      - export AWS_DEFAULT_REGION=$(curl -s http://169.254.169.254/latest/dynamic/instance-identity/document | grep region | cut -d\" -f4)
+      - export DARWIN_TOKEN=$(aws ssm get-parameters --names /train-tracker-api/prod/darwin-token --with-decryption --output text | cut -f6)
+      - sudo docker stop train-tracker-api
+      - sudo docker rm train-tracker-api
+      - sudo docker pull jamesgawn/train-tracker-api
+      - sudo docker run -p 80:3000 --log-driver=awslogs --log-opt=awslogs-group=train-tracker-api --env DARWIN_TOKEN=$DARWIN_TOKEN --log-opt=awslogs-create-group=true --name train-tracker-api --restart always -detach jamesgawn/train-tracker-api
+  DOC
 }
 
 resource "aws_iam_policy" "circle-ci-deploy-access" {
