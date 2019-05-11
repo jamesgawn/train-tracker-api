@@ -30,9 +30,8 @@ let log = new Bunyan({
   version: version
 })
 
-const AWSHelper = require('./helpers/aws-helper')
 const ConfigHelper = require('./helpers/config-helper')
-let configHelper = new ConfigHelper(log, new AWSHelper())
+let configHelper = new ConfigHelper(log)
 
 const NationalRailDarwinPromise = require('national-rail-darwin-promise')
 const rail = new NationalRailDarwinPromise(configHelper.get('DARWIN_TOKEN'))
@@ -45,6 +44,9 @@ app.use('/departureBoard', new DepartureBoardRouter(Express.Router(), log, rail)
 
 const DepartureBoardWithDetailsRouter = require('./routers/departure-board-with-details-router')
 app.use('/departureBoardWithDetails', new DepartureBoardWithDetailsRouter(Express.Router(), log, rail).router)
+
+const HealthRouter = require('./routers/health-router')
+app.use('/status', new HealthRouter(Express.Router(), log).router)
 
 app.get('/favicon.ico', (req, res) => res.status(204))
 

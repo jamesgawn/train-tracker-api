@@ -62,7 +62,7 @@ describe('ServiceRaillRouter', () => {
   })
   describe('methods', () => {
     describe('_get', () => {
-      it('should respond with station details for valid station', async () => {
+      it('should respond with a response for a valid request to the method ', async () => {
         let expectedResult = require('./exampleData/departureBoardWithDetails')
         rail.getDepartureBoard.resolves(expectedResult)
         let req = {
@@ -92,7 +92,7 @@ describe('ServiceRaillRouter', () => {
       })
     })
     describe('_getWithDestination', () => {
-      it('should respond with station details for valid station', async () => {
+      it('should respond with a response for a valid request to the method', async () => {
         let expectedResult = require('./exampleData/departureBoardWithDetails')
         rail.getDepartureBoard.resolves(expectedResult)
         let req = {
