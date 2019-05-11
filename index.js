@@ -46,6 +46,8 @@ app.use('/departureBoard', new DepartureBoardRouter(Express.Router(), log, rail)
 const DepartureBoardWithDetailsRouter = require('./routers/departure-board-with-details-router')
 app.use('/departureBoardWithDetails', new DepartureBoardWithDetailsRouter(Express.Router(), log, rail).router)
 
+app.get('/favicon.ico', (req, res) => res.status(204))
+
 const ErrorRouter = require('./routers/error-router')
 let errorRouter = new ErrorRouter(Express.Router(), log)
 app.use(errorRouter.uncaughtErrorHandler.bind(errorRouter))
