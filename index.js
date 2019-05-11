@@ -43,6 +43,9 @@ app.use('/station', new StationRouter(Express.Router(), log, rail).router)
 const DepartureBoardRouter = require('./routers/departure-board-router')
 app.use('/departureBoard', new DepartureBoardRouter(Express.Router(), log, rail).router)
 
+const DepartureBoardWithDetailsRouter = require('./routers/departure-board-with-details-router')
+app.use('/departureBoardWithDetails', new DepartureBoardWithDetailsRouter(Express.Router(), log, rail).router)
+
 const ErrorRouter = require('./routers/error-router')
 let errorRouter = new ErrorRouter(Express.Router(), log)
 app.use(errorRouter.uncaughtErrorHandler.bind(errorRouter))
