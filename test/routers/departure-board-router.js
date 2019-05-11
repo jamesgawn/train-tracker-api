@@ -20,8 +20,7 @@ describe('DepartureBoardRouter', () => {
       use: sinon.fake()
     }
     rail = {
-      getDepartureBoard: {
-        amIhere: true
+      getDepartureBoard: () => {
       }
     }
     log = {
@@ -40,7 +39,7 @@ describe('DepartureBoardRouter', () => {
         module: 'departure-board-router'
       })
       expect(departureBoardRouter._log).to.deep.equal(log)
-      expect(departureBoardRouter._method).to.deep.equal(rail.getDepartureBoard)
+      expect(departureBoardRouter._method.name).to.equal('bound getDepartureBoard')
     })
   })
 })
