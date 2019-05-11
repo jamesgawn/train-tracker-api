@@ -7,7 +7,7 @@ const rail = new NationallRailDarwinPromise()
 const port = normalizePort(process.env.PORT || '3000')
 
 const fs = require('fs')
-let version = fs.readFileSync('VERSION').toString()
+let version = fs.readFileSync('VERSION').toString().replace('\n', '')
 
 const Bunyan = require('bunyan')
 let log = new Bunyan({
