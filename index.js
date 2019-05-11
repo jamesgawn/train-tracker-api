@@ -41,7 +41,7 @@ const StationRouter = require('./routers/station-router')
 app.use('/station', new StationRouter(Express.Router(), log, rail).router)
 
 const DepartureBoardRouter = require('./routers/departure-board-router')
-app.use('/departure-board', new DepartureBoardRouter(Express.Router(), log, rail).router)
+app.use('/departureBoard', new DepartureBoardRouter(Express.Router(), log, rail).router)
 
 const ErrorRouter = require('./routers/error-router')
 let errorRouter = new ErrorRouter(Express.Router(), log)

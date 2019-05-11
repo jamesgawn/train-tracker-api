@@ -5,3 +5,4 @@ coverage/*
 reports/*
 yarn-error.log
 terraform.tfvars
+.terraform/*

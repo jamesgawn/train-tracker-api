@@ -1,0 +1,682 @@
+{
+  "trainServices": [
+    {
+      "std": "17:27",
+      "etd": "On time",
+      "platform": "2",
+      "operator": "Southeastern",
+      "operatorCode": "SE",
+      "length": "8",
+      "serviceId": "eGZpXZmFe+bj3OvlRpyPTQ==",
+      "rsid": "SE407300",
+      "origin": {
+        "name": "London Cannon Street",
+        "crs": "CST"
+      },
+      "destination": {
+        "name": "London Cannon Street",
+        "crs": "CST"
+      },
+      "subsequentCallingPoints": [
+        {
+          "locationName": "Deptford",
+          "crs": "DEP",
+          "st": "17:29",
+          "et": "On time",
+          "length": "8"
+        },
+        {
+          "locationName": "London Bridge",
+          "crs": "LBG",
+          "st": "17:35",
+          "et": "On time",
+          "length": "8"
+        },
+        {
+          "locationName": "London Cannon Street",
+          "crs": "CST",
+          "st": "17:41",
+          "et": "On time",
+          "length": "8"
+        }
+      ]
+    },
+    {
+      "std": "17:47",
+      "etd": "On time",
+      "platform": "1",
+      "operator": "Southeastern",
+      "operatorCode": "SE",
+      "length": "4",
+      "serviceId": "O0USuKgZqsFRegdPPcycBQ==",
+      "origin": {
+        "name": "London Cannon Street",
+        "crs": "CST"
+      },
+      "destination": {
+        "name": "Crayford",
+        "crs": "CRY"
+      },
+      "subsequentCallingPoints": [
+        {
+          "locationName": "Maze Hill",
+          "crs": "MZH",
+          "st": "17:50",
+          "et": "On time",
+          "length": "4"
+        },
+        {
+          "locationName": "Westcombe Park",
+          "crs": "WCB",
+          "st": "17:52",
+          "et": "On time",
+          "length": "4"
+        },
+        {
+          "locationName": "Charlton",
+          "crs": "CTN",
+          "st": "17:54",
+          "et": "On time",
+          "length": "4"
+        },
+        {
+          "locationName": "Woolwich Dockyard",
+          "crs": "WWD",
+          "st": "17:58",
+          "et": "On time",
+          "length": "4"
+        },
+        {
+          "locationName": "Woolwich Arsenal",
+          "crs": "WWA",
+          "st": "18:00",
+          "et": "On time",
+          "length": "4"
+        },
+        {
+          "locationName": "Plumstead",
+          "crs": "PLU",
+          "st": "18:03",
+          "et": "On time",
+          "length": "4"
+        },
+        {
+          "locationName": "Abbey Wood",
+          "crs": "ABW",
+          "st": "18:06",
+          "et": "On time",
+          "length": "4"
+        },
+        {
+          "locationName": "Belvedere",
+          "crs": "BVD",
+          "st": "18:09",
+          "et": "On time",
+          "length": "4"
+        },
+        {
+          "locationName": "Erith",
+          "crs": "ERH",
+          "st": "18:12",
+          "et": "On time",
+          "length": "4"
+        },
+        {
+          "locationName": "Slade Green",
+          "crs": "SGR",
+          "st": "18:15",
+          "et": "On time",
+          "length": "4"
+        },
+        {
+          "locationName": "Crayford",
+          "crs": "CRY",
+          "st": "18:30",
+          "et": "On time",
+          "length": "4"
+        }
+      ]
+    },
+    {
+      "std": "17:47",
+      "etd": "On time",
+      "platform": "2",
+      "operator": "Thameslink",
+      "operatorCode": "TL",
+      "length": "8",
+      "serviceId": "tT1rjaKtCf1PC0U0mzZFdQ==",
+      "origin": {
+        "name": "Rainham (Kent)",
+        "crs": "RAI"
+      },
+      "destination": {
+        "name": "Kentish Town",
+        "crs": "KTN"
+      },
+      "subsequentCallingPoints": [
+        {
+          "locationName": "Deptford",
+          "crs": "DEP",
+          "st": "17:49",
+          "et": "On time",
+          "length": "8"
+        },
+        {
+          "locationName": "London Bridge",
+          "crs": "LBG",
+          "st": "17:57",
+          "et": "On time",
+          "length": "8"
+        },
+        {
+          "locationName": "London Blackfriars",
+          "crs": "BFR",
+          "st": "18:04",
+          "et": "On time",
+          "length": "8"
+        },
+        {
+          "locationName": "City Thameslink",
+          "crs": "CTK",
+          "st": "18:06",
+          "et": "On time",
+          "length": "8"
+        },
+        {
+          "locationName": "Farringdon Underground",
+          "crs": "ZFD",
+          "st": "18:08",
+          "et": "On time",
+          "length": "8"
+        },
+        {
+          "locationName": "London St Pancras (Intl)",
+          "crs": "STP",
+          "st": "18:13",
+          "et": "On time",
+          "length": "8"
+        },
+        {
+          "locationName": "Kentish Town",
+          "crs": "KTN",
+          "st": "18:17",
+          "et": "On time",
+          "length": "8"
+        }
+      ]
+    },
+    {
+      "std": "17:57",
+      "etd": "On time",
+      "platform": "2",
+      "operator": "Southeastern",
+      "operatorCode": "SE",
+      "length": "10",
+      "serviceId": "S7C9FAyexHQlbgn+Xp18eg==",
+      "rsid": "SE407400",
+      "origin": {
+        "name": "London Cannon Street",
+        "crs": "CST"
+      },
+      "destination": {
+        "name": "London Cannon Street",
+        "crs": "CST"
+      },
+      "subsequentCallingPoints": [
+        {
+          "locationName": "Deptford",
+          "crs": "DEP",
+          "st": "17:59",
+          "et": "On time",
+          "length": "10"
+        },
+        {
+          "locationName": "London Bridge",
+          "crs": "LBG",
+          "st": "18:05",
+          "et": "On time",
+          "length": "10"
+        },
+        {
+          "locationName": "London Cannon Street",
+          "crs": "CST",
+          "st": "18:11",
+          "et": "On time",
+          "length": "10"
+        }
+      ]
+    },
+    {
+      "std": "18:17",
+      "etd": "On time",
+      "operator": "Southeastern",
+      "operatorCode": "SE",
+      "length": "10",
+      "serviceId": "THu6LTV6PBVqYfiuIyG9rg==",
+      "origin": {
+        "name": "London Cannon Street",
+        "crs": "CST"
+      },
+      "destination": {
+        "name": "Crayford",
+        "crs": "CRY"
+      },
+      "subsequentCallingPoints": [
+        {
+          "locationName": "Maze Hill",
+          "crs": "MZH",
+          "st": "18:20",
+          "et": "On time",
+          "length": "10"
+        },
+        {
+          "locationName": "Westcombe Park",
+          "crs": "WCB",
+          "st": "18:22",
+          "et": "On time",
+          "length": "10"
+        },
+        {
+          "locationName": "Charlton",
+          "crs": "CTN",
+          "st": "18:24",
+          "et": "On time",
+          "length": "10"
+        },
+        {
+          "locationName": "Woolwich Dockyard",
+          "crs": "WWD",
+          "st": "18:28",
+          "et": "On time",
+          "length": "10"
+        },
+        {
+          "locationName": "Woolwich Arsenal",
+          "crs": "WWA",
+          "st": "18:30",
+          "et": "On time",
+          "length": "10"
+        },
+        {
+          "locationName": "Plumstead",
+          "crs": "PLU",
+          "st": "18:33",
+          "et": "On time",
+          "length": "10"
+        },
+        {
+          "locationName": "Abbey Wood",
+          "crs": "ABW",
+          "st": "18:36",
+          "et": "On time",
+          "length": "10"
+        },
+        {
+          "locationName": "Belvedere",
+          "crs": "BVD",
+          "st": "18:39",
+          "et": "On time",
+          "length": "10"
+        },
+        {
+          "locationName": "Erith",
+          "crs": "ERH",
+          "st": "18:42",
+          "et": "On time",
+          "length": "10"
+        },
+        {
+          "locationName": "Slade Green",
+          "crs": "SGR",
+          "st": "18:45",
+          "et": "On time",
+          "length": "10"
+        },
+        {
+          "locationName": "Crayford",
+          "crs": "CRY",
+          "st": "19:00",
+          "et": "On time",
+          "length": "10"
+        }
+      ]
+    },
+    {
+      "std": "18:27",
+      "etd": "On time",
+      "operator": "Southeastern",
+      "operatorCode": "SE",
+      "length": "10",
+      "serviceId": "yoAu3YxT8t2HqkcQP1xe5w==",
+      "rsid": "SE407500",
+      "origin": {
+        "name": "London Cannon Street",
+        "crs": "CST"
+      },
+      "destination": {
+        "name": "London Cannon Street",
+        "crs": "CST"
+      },
+      "subsequentCallingPoints": [
+        {
+          "locationName": "Deptford",
+          "crs": "DEP",
+          "st": "18:29",
+          "et": "On time",
+          "length": "10"
+        },
+        {
+          "locationName": "London Bridge",
+          "crs": "LBG",
+          "st": "18:35",
+          "et": "On time",
+          "length": "10"
+        },
+        {
+          "locationName": "London Cannon Street",
+          "crs": "CST",
+          "st": "18:41",
+          "et": "On time",
+          "length": "10"
+        }
+      ]
+    },
+    {
+      "std": "18:47",
+      "etd": "On time",
+      "operator": "Southeastern",
+      "operatorCode": "SE",
+      "length": "8",
+      "serviceId": "+24bDbJRW9quiojoU9+82g==",
+      "origin": {
+        "name": "London Cannon Street",
+        "crs": "CST"
+      },
+      "destination": {
+        "name": "Crayford",
+        "crs": "CRY"
+      },
+      "subsequentCallingPoints": [
+        {
+          "locationName": "Maze Hill",
+          "crs": "MZH",
+          "st": "18:50",
+          "et": "On time",
+          "length": "8"
+        },
+        {
+          "locationName": "Westcombe Park",
+          "crs": "WCB",
+          "st": "18:52",
+          "et": "On time",
+          "length": "8"
+        },
+        {
+          "locationName": "Charlton",
+          "crs": "CTN",
+          "st": "18:54",
+          "et": "On time",
+          "length": "8"
+        },
+        {
+          "locationName": "Woolwich Dockyard",
+          "crs": "WWD",
+          "st": "18:58",
+          "et": "On time",
+          "length": "8"
+        },
+        {
+          "locationName": "Woolwich Arsenal",
+          "crs": "WWA",
+          "st": "19:00",
+          "et": "On time",
+          "length": "8"
+        },
+        {
+          "locationName": "Plumstead",
+          "crs": "PLU",
+          "st": "19:03",
+          "et": "On time",
+          "length": "8"
+        },
+        {
+          "locationName": "Abbey Wood",
+          "crs": "ABW",
+          "st": "19:06",
+          "et": "On time",
+          "length": "8"
+        },
+        {
+          "locationName": "Belvedere",
+          "crs": "BVD",
+          "st": "19:09",
+          "et": "On time",
+          "length": "8"
+        },
+        {
+          "locationName": "Erith",
+          "crs": "ERH",
+          "st": "19:12",
+          "et": "On time",
+          "length": "8"
+        },
+        {
+          "locationName": "Slade Green",
+          "crs": "SGR",
+          "st": "19:15",
+          "et": "On time",
+          "length": "8"
+        },
+        {
+          "locationName": "Crayford",
+          "crs": "CRY",
+          "st": "19:30",
+          "et": "On time",
+          "length": "8"
+        }
+      ]
+    },
+    {
+      "std": "18:47",
+      "etd": "On time",
+      "operator": "Thameslink",
+      "operatorCode": "TL",
+      "length": "8",
+      "serviceId": "UyWJwWkOVRcGCQB2Iiv2yQ==",
+      "origin": {
+        "name": "Rainham (Kent)",
+        "crs": "RAI"
+      },
+      "destination": {
+        "name": "Kentish Town",
+        "crs": "KTN"
+      },
+      "subsequentCallingPoints": [
+        {
+          "locationName": "Deptford",
+          "crs": "DEP",
+          "st": "18:49",
+          "et": "On time",
+          "length": "8"
+        },
+        {
+          "locationName": "London Bridge",
+          "crs": "LBG",
+          "st": "18:57",
+          "et": "On time",
+          "length": "8"
+        },
+        {
+          "locationName": "London Blackfriars",
+          "crs": "BFR",
+          "st": "19:04",
+          "et": "On time",
+          "length": "8"
+        },
+        {
+          "locationName": "City Thameslink",
+          "crs": "CTK",
+          "st": "19:06",
+          "et": "On time",
+          "length": "8"
+        },
+        {
+          "locationName": "Farringdon Underground",
+          "crs": "ZFD",
+          "st": "19:08",
+          "et": "On time",
+          "length": "8"
+        },
+        {
+          "locationName": "London St Pancras (Intl)",
+          "crs": "STP",
+          "st": "19:13",
+          "et": "On time",
+          "length": "8"
+        },
+        {
+          "locationName": "Kentish Town",
+          "crs": "KTN",
+          "st": "19:17",
+          "et": "On time",
+          "length": "8"
+        }
+      ]
+    },
+    {
+      "std": "18:57",
+      "etd": "On time",
+      "operator": "Southeastern",
+      "operatorCode": "SE",
+      "length": "8",
+      "serviceId": "KQ3d8jsZ3rhfo1Lky1BrXg==",
+      "rsid": "SE407600",
+      "origin": {
+        "name": "London Cannon Street",
+        "crs": "CST"
+      },
+      "destination": {
+        "name": "London Cannon Street",
+        "crs": "CST"
+      },
+      "subsequentCallingPoints": [
+        {
+          "locationName": "Deptford",
+          "crs": "DEP",
+          "st": "18:59",
+          "et": "On time",
+          "length": "8"
+        },
+        {
+          "locationName": "London Bridge",
+          "crs": "LBG",
+          "st": "19:05",
+          "et": "On time",
+          "length": "8"
+        },
+        {
+          "locationName": "London Cannon Street",
+          "crs": "CST",
+          "st": "19:11",
+          "et": "On time",
+          "length": "8"
+        }
+      ]
+    },
+    {
+      "std": "19:17",
+      "etd": "On time",
+      "operator": "Southeastern",
+      "operatorCode": "SE",
+      "length": "8",
+      "serviceId": "n5wP3YLXxTlItdgqldnc8w==",
+      "origin": {
+        "name": "London Cannon Street",
+        "crs": "CST"
+      },
+      "destination": {
+        "name": "Crayford",
+        "crs": "CRY"
+      },
+      "subsequentCallingPoints": [
+        {
+          "locationName": "Maze Hill",
+          "crs": "MZH",
+          "st": "19:20",
+          "et": "On time",
+          "length": "8"
+        },
+        {
+          "locationName": "Westcombe Park",
+          "crs": "WCB",
+          "st": "19:22",
+          "et": "On time",
+          "length": "8"
+        },
+        {
+          "locationName": "Charlton",
+          "crs": "CTN",
+          "st": "19:24",
+          "et": "On time",
+          "length": "8"
+        },
+        {
+          "locationName": "Woolwich Dockyard",
+          "crs": "WWD",
+          "st": "19:28",
+          "et": "On time",
+          "length": "8"
+        },
+        {
+          "locationName": "Woolwich Arsenal",
+          "crs": "WWA",
+          "st": "19:30",
+          "et": "On time",
+          "length": "8"
+        },
+        {
+          "locationName": "Plumstead",
+          "crs": "PLU",
+          "st": "19:33",
+          "et": "On time",
+          "length": "8"
+        },
+        {
+          "locationName": "Abbey Wood",
+          "crs": "ABW",
+          "st": "19:36",
+          "et": "On time",
+          "length": "8"
+        },
+        {
+          "locationName": "Belvedere",
+          "crs": "BVD",
+          "st": "19:39",
+          "et": "On time",
+          "length": "8"
+        },
+        {
+          "locationName": "Erith",
+          "crs": "ERH",
+          "st": "19:42",
+          "et": "On time",
+          "length": "8"
+        },
+        {
+          "locationName": "Slade Green",
+          "crs": "SGR",
+          "st": "19:45",
+          "et": "On time",
+          "length": "8"
+        },
+        {
+          "locationName": "Crayford",
+          "crs": "CRY",
+          "st": "20:00",
+          "et": "On time",
+          "length": "8"
+        }
+      ]
+    }
+  ]
+}
