@@ -33,6 +33,15 @@ let log = new Bunyan({
 const ConfigHelper = require('./helpers/config-helper')
 let configHelper = new ConfigHelper(log)
 
+let corsAllowedOrigins = configHelper.get('CORS_ALLOWED_ORIGINS', false)
+if (corsAllowedOrigins !== null) {
+  log.info('Setting Access-Control-Allow-Origin to ' + corsAllowedOrigins)
+  app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', corsAllowedOrigins)
+    next()
+  })
+}
+
 const NationalRailDarwinPromise = require('national-rail-darwin-promise')
 const rail = new NationalRailDarwinPromise(configHelper.get('DARWIN_TOKEN'))
 

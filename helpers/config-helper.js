@@ -4,18 +4,23 @@ class ConfigHelper {
     this._cache = new Map()
   }
 
-  get (name) {
+  get (name, errWhenMissing) {
     if (this._cache.has(name)) {
       this._log.info('Retrieved ' + name + ' from Cache')
       return this._cache.get(name)
     } else {
       let value = process.env[name]
       if (typeof value === 'undefined') {
-        let err = new Error('Failed to retrieve ' + name + ' from ENV Vars')
-        this._log.error({
-          err: err
-        }, 'Failed to retrieve ' + name + ' from ENV Vars')
-        throw err
+        if (typeof errWhenMissing === 'undefined' || errWhenMissing) {
+          let err = new Error('Failed to retrieve ' + name + ' from ENV Vars')
+          this._log.error({
+            err: err
+          }, 'Failed to retrieve ' + name + ' from ENV Vars')
+          throw err
+        } else {
+          this._log.info('Retrieved ' + name + ' from ENV Vars, but it was unavailable')
+          return null
+        }
       } else {
         this._log.info('Retrieved ' + name + ' from ENV Vars')
       }

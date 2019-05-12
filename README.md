@@ -12,7 +12,12 @@ You can easily run the service using the pre-build docker container:
 docker run -p 80:3000 -e DARWIN_TOKEN=REPLACE -detach jamesgawn/train-tracker-api
 ```
 
-You will need to provide a darwin token via the environment variable DARWIN_TOKEN for the service to access the national rail APIs. You can find out how to obtain one on the [national rail website](https://www.nationalrail.co.uk/100296.aspx)
+There are environment variables that can be specified to configure the service:
+
+| Environment Variable | Mandatory | Description |
+| --- | --- | --- |
+| DARWIN_TOKEN | Yes | The token used to access the National Rails Darwin API. You can find out how to obtain one on the [national rail website](https://www.nationalrail.co.uk/100296.aspx) |
+| CORS_ALLOWED_ORIGINS | No | This can be used to specify a Access-Control-Allow-Origin header on the service | 
 
 ## Available Endpoints
 
