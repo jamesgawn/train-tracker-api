@@ -51,8 +51,11 @@ data "aws_ami" "amazon-linux-2" {
   owners = ["137112412989"]
 }
 
-data "local_file" "server-cloud-init" {
-  filename = "${path.module}/cloudinit.cfg"
+data "template_file" "server-cloud-init" {
+  template = "${file("${path.module}/cloudinit.cfg")}"
+   vars {
+     ENV = "${var.domain}"
+   }
 }
 
 data "aws_vpc" "selected" {
@@ -102,7 +105,7 @@ resource "aws_instance" "server" {
   instance_type = "t3.nano"
   iam_instance_profile = "${data.aws_iam_role.ec2instancerole.name}"
 
-  user_data = "${data.local_file.server-cloud-init.content}"
+  user_data = "${data.template_file.server-cloud-init.rendered}"
 
   subnet_id = "${data.aws_subnet.subnet.id}"
   vpc_security_group_ids = ["${aws_security_group.server_security_group.id}"]
@@ -131,7 +134,7 @@ resource "aws_ssm_document" "deploy-update" {
       - sudo docker stop train-tracker-api
       - sudo docker rm train-tracker-api
       - sudo docker pull jamesgawn/train-tracker-api
-      - sudo docker run -p 80:3000 --log-driver=awslogs --log-opt=awslogs-group=train-tracker-api --env DARWIN_TOKEN=$DARWIN_TOKEN --log-opt=awslogs-create-group=true --name train-tracker-api --restart always -detach jamesgawn/train-tracker-api
+      - sudo docker run -p 80:3000 --log-driver=awslogs --log-opt=awslogs-group=train-tracker-api --env DARWIN_TOKEN=$DARWIN_TOKEN -e CORS_ALLOWED_ORIGINS=train-tracker.${var.domain} --log-opt=awslogs-create-group=true --name train-tracker-api --restart always -detach jamesgawn/train-tracker-api
   DOC
 }
 
@@ -197,4 +200,8 @@ resource "aws_route53_record" "api-dns-aaaa-record" {
   zone_id = "${data.aws_route53_zone.domain-root.zone_id}"
   ttl = "600"
   records = ["${aws_instance.server.ipv6_addresses}"]
+}
+
+output "test" {
+  value = "${data.template_file.server-cloud-init.rendered}"
 }
