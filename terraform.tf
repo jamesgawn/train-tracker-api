@@ -201,7 +201,3 @@ resource "aws_route53_record" "api-dns-aaaa-record" {
   ttl = "600"
   records = ["${aws_instance.server.ipv6_addresses}"]
 }
-
-output "test" {
-  value = "${data.template_file.server-cloud-init.rendered}"
-}
