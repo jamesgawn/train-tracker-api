@@ -8,6 +8,7 @@ const StationRouter = require('../../routers/station-router')
 
 describe('StationRouter', () => {
   let router
+  let railData
   let rail
   let parentLog
   let log
@@ -19,6 +20,9 @@ describe('StationRouter', () => {
       blah: true,
       get: sinon.fake(),
       use: sinon.fake()
+    }
+    railData = {
+      getStations: sinon.fake()
     }
     rail = {
       getStationDetails: sinon.fake()
@@ -35,12 +39,13 @@ describe('StationRouter', () => {
       success: sinon.fake(),
       error: sinon.fake()
     }
-    stationRouter = new StationRouter(router, parentLog, rail)
+    stationRouter = new StationRouter(router, parentLog, rail, railData)
     stationRouter._responseSender = responseSender
   })
 
   describe('constructor', () => {
     it('should setup availabe URIs and map to internal methods to handle response', () => {
+      expect(stationRouter._railData).to.deep.equal(railData)
       expect(stationRouter._rail).to.deep.equal(rail)
       expect(stationRouter.router).to.deep.equal(router)
       expect(parentLog.child).to.be.calledWithExactly({

@@ -1,9 +1,10 @@
 const BaseRailRouter = require('./base-rail-router')
 
 class StationRouter extends BaseRailRouter {
-  constructor (router, log, rail) {
+  constructor (router, log, rail, railData) {
     super(router, log, 'station-router', rail)
 
+    this._railData = railData
     this._router.get('/:crsCode', this._getStation.bind(this))
   }
 
