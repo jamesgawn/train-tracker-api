@@ -54,7 +54,7 @@ data "aws_ami" "amazon-linux-2" {
 data "template_file" "server-cloud-init" {
   template = "${file("${path.module}/cloudinit.cfg")}"
    vars {
-     ENV = "${var.domain}"
+     DOMAIN = "${var.domain}"
    }
 }
 
@@ -131,10 +131,12 @@ resource "aws_ssm_document" "deploy-update" {
       runCommand:
       - export AWS_DEFAULT_REGION=$(curl -s http://169.254.169.254/latest/dynamic/instance-identity/document | grep region | cut -d\" -f4)
       - export DARWIN_TOKEN=$(aws ssm get-parameters --names /train-tracker-api/prod/darwin-token --with-decryption --output text | cut -f6)
+      - export NRDP_USER=$(aws ssm get-parameters --names /train-tracker-api/prod/nrdp-user --with-decryption --output text | cut -f6)
+      - export NRDP_PASS=$(aws ssm get-parameters --names /train-tracker-api/prod/nrdp-pass --with-decryption --output text | cut -f6)
       - sudo docker stop train-tracker-api
       - sudo docker rm train-tracker-api
       - sudo docker pull jamesgawn/train-tracker-api
-      - sudo docker run -p 80:3000 --log-driver=awslogs --log-opt=awslogs-group=train-tracker-api --env DARWIN_TOKEN=$DARWIN_TOKEN -e CORS_ALLOWED_ORIGINS=train-tracker.${var.domain} --log-opt=awslogs-create-group=true --name train-tracker-api --restart always -detach jamesgawn/train-tracker-api
+      - sudo docker run -p 80:3000 --log-driver=awslogs --log-opt=awslogs-group=train-tracker-api -e DARWIN_TOKEN=$DARWIN_TOKEN -e NRDP_USER=$NRDP_USER -e NRDP_PASS=$NRDP_PASS -e CORS_ALLOWED_ORIGINS=train-tracker.${var.domain} --log-opt=awslogs-create-group=true --name train-tracker-api --restart always -detach jamesgawn/train-tracker-api
   DOC
 }
 
@@ -200,8 +202,4 @@ resource "aws_route53_record" "api-dns-aaaa-record" {
   zone_id = "${data.aws_route53_zone.domain-root.zone_id}"
   ttl = "600"
   records = ["${aws_instance.server.ipv6_addresses}"]
-}
-
-output "test" {
-  value = "${data.template_file.server-cloud-init.rendered}"
 }

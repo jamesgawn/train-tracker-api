@@ -42,11 +42,14 @@ if (corsAllowedOrigins !== null) {
   })
 }
 
+const NationalRailData = require('national-rail-data')
+const railData = new NationalRailData(configHelper.get('NRDP_USER'), configHelper.get('NRDP_PASS'))
+
 const NationalRailDarwinPromise = require('national-rail-darwin-promise')
 const rail = new NationalRailDarwinPromise(configHelper.get('DARWIN_TOKEN'))
 
 const StationRouter = require('./routers/station-router')
-app.use('/station', new StationRouter(Express.Router(), log, rail).router)
+app.use('/station', new StationRouter(Express.Router(), log, rail, railData).router)
 
 const DepartureBoardRouter = require('./routers/departure-board-router')
 app.use('/departureBoard', new DepartureBoardRouter(Express.Router(), log, rail).router)

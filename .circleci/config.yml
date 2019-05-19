@@ -130,6 +130,12 @@ workflows:
           requires:
             - test
             - lint
+          filters:
+            branches:
+              only: master
       - deploy:
           requires:
             - dockerise
+          filters:
+            branches:
+              only: master
