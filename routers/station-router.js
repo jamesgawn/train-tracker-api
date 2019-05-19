@@ -5,9 +5,19 @@ class StationRouter extends BaseRailRouter {
     super(router, log, 'station-router', rail)
 
     this._railData = railData
+    this._router.get('/', this._getAll.bind(this))
     this._router.get('/:crsCode', this._getStation.bind(this))
   }
-
+  async _getAll (req, res, next) {
+    try {
+      let stations = await this._railData.getStations()
+      this._responseSender.success('getAll', req, res, stations)
+      next()
+    } catch (err) {
+      this._responseSender.error('getAll', req, res, err)
+      next()
+    }
+  }
   async _getStation (req, res, next) {
     try {
       let crsCode = req.params.crsCode

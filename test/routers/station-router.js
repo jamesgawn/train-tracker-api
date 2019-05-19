@@ -12,6 +12,7 @@ describe('StationRouter', () => {
   let rail
   let parentLog
   let log
+  let next, res
   let responseSender
   let stationRouter
 
@@ -21,6 +22,8 @@ describe('StationRouter', () => {
       get: sinon.fake(),
       use: sinon.fake()
     }
+    next = sinon.spy()
+    res = {}
     railData = {
       getStations: sinon.fake()
     }
@@ -53,8 +56,37 @@ describe('StationRouter', () => {
       })
       expect(stationRouter._log).to.deep.equal(log)
 
+      expect(router.get).to.be.calledWith('/')
+      expect(router.get.firstCall.args[1].name).to.equal('bound _getAll')
       expect(router.get).to.be.calledWith('/:crsCode')
-      expect(router.get.firstCall.args[1].name).to.equal('bound _getStation')
+      expect(router.get.secondCall.args[1].name).to.equal('bound _getStation')
+    })
+  })
+
+  describe('_all', () => {
+    let req
+    beforeEach(() => {
+      req = {}
+    })
+    it('should respond with full list of stations', async () => {
+      let expectedResult = [{
+        pies: true
+      }]
+      railData.getStations = sinon.stub().resolves(expectedResult)
+      await stationRouter._getAll(req, res, next)
+      expect(railData.getStations.callCount).to.equal(1)
+      expect(responseSender.success).to.be.calledWithExactly('getAll', req, res, expectedResult)
+      expect(next.callCount).to.equal(1)
+    })
+    it('should respond with 500 error when exception occurs', async () => {
+      let err = {
+        error: true
+      }
+      railData.getStations = sinon.stub().rejects(err)
+      await stationRouter._getAll(req, res, next)
+      expect(railData.getStations.callCount).to.equal(1)
+      expect(responseSender.error).to.be.calledWithExactly('getAll', req, res, err)
+      expect(next.callCount).to.be.equal(1)
     })
   })
 
@@ -63,14 +95,12 @@ describe('StationRouter', () => {
       let expectedResult = [{
         pies: true
       }]
-      rail.getStationDetails = sinon.stub().resolves(expectedResult)
       let req = {
         params: {
           crsCode: 'GNW'
         }
       }
-      let res = {}
-      let next = sinon.spy()
+      rail.getStationDetails = sinon.stub().resolves(expectedResult)
       await stationRouter._getStation(req, res, next)
       expect(rail.getStationDetails).to.be.calledWithExactly('GNW')
       expect(responseSender.success).to.be.calledWithExactly('getStation', req, res, expectedResult)
@@ -83,8 +113,6 @@ describe('StationRouter', () => {
           crsCode: 'BLAH'
         }
       }
-      let res = {}
-      let next = sinon.spy()
       await stationRouter._getStation(req, res, next)
       expect(rail.getStationDetails).to.be.calledWithExactly('BLAH')
       expect(responseSender.notFound).to.be.calledWithExactly('getStation', req, res, 'Unable to find station BLAH')
@@ -100,8 +128,6 @@ describe('StationRouter', () => {
           crsCode: 'BLAH'
         }
       }
-      let res = {}
-      let next = sinon.spy()
       await stationRouter._getStation(req, res, next)
       expect(rail.getStationDetails).to.be.calledWithExactly('BLAH')
       expect(responseSender.error).to.be.calledWithExactly('getStation', req, res, err)
