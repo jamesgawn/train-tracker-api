@@ -67,14 +67,31 @@ describe('StationRouter', () => {
     let req
     beforeEach(() => {
       req = {}
+      stationRouter._cache = {
+        get: sinon.spy(),
+        set: sinon.spy()
+      }
     })
-    it('should respond with full list of stations', async () => {
+    it('should respond with full list of stations by calling NRDP service when cache is empty', async () => {
       let expectedResult = [{
         pies: true
       }]
       railData.getStations = sinon.stub().resolves(expectedResult)
+      stationRouter._cache.get = sinon.stub().returns(undefined)
+      stationRouter._cache.set = sinon.spy()
       await stationRouter._getAll(req, res, next)
+      expect(stationRouter._cache.set).to.be.calledWithExactly('stations', expectedResult, 60 * 60 * 24)
       expect(railData.getStations.callCount).to.equal(1)
+      expect(responseSender.success).to.be.calledWithExactly('getAll', req, res, expectedResult)
+      expect(next.callCount).to.equal(1)
+    })
+    it('should respond with full list of stations by returning cached version if available', async () => {
+      let expectedResult = [{
+        pies: true
+      }]
+      stationRouter._cache.get = sinon.stub().returns(expectedResult)
+      await stationRouter._getAll(req, res, next)
+      expect(railData.getStations.callCount).to.equal(0)
       expect(responseSender.success).to.be.calledWithExactly('getAll', req, res, expectedResult)
       expect(next.callCount).to.equal(1)
     })

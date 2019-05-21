@@ -136,7 +136,7 @@ resource "aws_ssm_document" "deploy-update" {
       - sudo docker stop train-tracker-api
       - sudo docker rm train-tracker-api
       - sudo docker pull jamesgawn/train-tracker-api
-      - sudo docker run -p 80:3000 --log-driver=awslogs --log-opt=awslogs-group=train-tracker-api -e DARWIN_TOKEN=$DARWIN_TOKEN -e NRDP_USER=$NRDP_USER -e NRDP_PASS=$NRDP_PASS -e CORS_ALLOWED_ORIGINS=train-tracker.${var.domain} --log-opt=awslogs-create-group=true --name train-tracker-api --restart always -detach jamesgawn/train-tracker-api
+      - sudo docker run -p 80:3000 --log-driver=awslogs --log-opt=awslogs-group=train-tracker-api -e DARWIN_TOKEN=$DARWIN_TOKEN -e NRDP_USER=$NRDP_USER -e NRDP_PASS=$NRDP_PASS -e CORS_ALLOWED_ORIGINS=http://train-tracker.${var.domain} --log-opt=awslogs-create-group=true --name train-tracker-api --restart always -detach jamesgawn/train-tracker-api
   DOC
 }
 
