@@ -79,7 +79,7 @@ describe('ResponseSender', () => {
       })
     })
     it('should return internal server error with exception if DEV env variable has been set', () => {
-      process.env['ENV'] = 'DEV'
+      process.env.ENV = 'DEV'
       responseSender.error('test', req, res, 'AAARRRGGGHHH')
       expect(res.status).to.be.calledWithExactly(500)
       expect(res.json).to.be.calledWithExactly({
@@ -93,7 +93,7 @@ describe('ResponseSender', () => {
         method: 'test',
         err: 'AAARRRGGGHHH'
       })
-      delete process.env['ENV']
+      delete process.env.ENV
     })
   })
 })

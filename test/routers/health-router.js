@@ -50,9 +50,9 @@ describe('HealthRouter', () => {
 
   describe('_ping', () => {
     it('should respond pong', async () => {
-      let req = {}
-      let res = {}
-      let next = sinon.spy()
+      const req = {}
+      const res = {}
+      const next = sinon.spy()
       await healthRouter._ping(req, res, next)
       expect(responseSender.success).to.be.calledWithExactly('ping', req, res, 'pong')
       expect(next.callCount).to.be.equal(1)

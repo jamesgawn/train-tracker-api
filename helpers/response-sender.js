@@ -15,13 +15,14 @@ class ResponseSender {
       method: method
     }, msg)
   }
+
   error (method, req, res, err) {
-    let response = {
+    const response = {
       status: 500,
       message: 'An internal error has occurred.'
     }
 
-    if (process.env['ENV'] === 'DEV') {
+    if (process.env.ENV === 'DEV') {
       response.error = err
     }
     res.status(500)
@@ -33,6 +34,7 @@ class ResponseSender {
       err: err
     })
   }
+
   success (method, req, res, content) {
     res.status(200)
     res.json({

@@ -10,13 +10,14 @@ class StationRouter extends BaseRailRouter {
     this._router.get('/:crsCode', this._getStation.bind(this))
     this._cache = new NodeCache()
   }
+
   async _getAll (req, res, next) {
     try {
-      let stations = await this._cache.get('stations')
+      const stations = await this._cache.get('stations')
       if (typeof stations !== 'undefined') {
         this._responseSender.success('getAll', req, res, stations)
       } else {
-        let stations = await this._railData.getStations()
+        const stations = await this._railData.getStations()
         this._cache.set('stations', stations, 60 * 60 * 24)
         this._responseSender.success('getAll', req, res, stations)
       }
@@ -26,14 +27,15 @@ class StationRouter extends BaseRailRouter {
       next()
     }
   }
+
   async _getStation (req, res, next) {
     try {
-      let crsCode = req.params.crsCode
-      let stations = await this._rail.getStationDetails(crsCode)
+      const crsCode = req.params.crsCode
+      const stations = await this._rail.getStationDetails(crsCode)
       if (stations.length > 0) {
         this._responseSender.success('getStation', req, res, stations)
       } else {
-        let msg = 'Unable to find station ' + crsCode
+        const msg = 'Unable to find station ' + crsCode
         this._responseSender.notFound('getStation', req, res, msg)
       }
       next()

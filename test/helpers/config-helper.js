@@ -48,7 +48,7 @@ describe('ConfigHelper', () => {
       it('should return config from cache when available', () => {
         configHelper._cache.get = sinon.fake.returns(varValue)
         configHelper._cache.has = sinon.fake.returns(true)
-        let result = configHelper.get(varName)
+        const result = configHelper.get(varName)
         expect(result).to.equal(varValue)
         expect(configHelper._cache.has).to.be.calledWithExactly(varName)
         expect(configHelper._cache.get).to.be.calledWithExactly(varName)
@@ -58,7 +58,7 @@ describe('ConfigHelper', () => {
       it('should return config from env var when available', () => {
         configHelper._cache.has = sinon.fake.returns(false)
         process.env[varName] = varValue
-        let result = configHelper.get(varName)
+        const result = configHelper.get(varName)
         expect(result).to.equal(varValue)
         expect(configHelper._cache.has).to.be.calledWithExactly(varName)
         expect(configHelper._cache.set).to.be.calledWithExactly(varName, varValue)
@@ -68,7 +68,7 @@ describe('ConfigHelper', () => {
       })
       it('should throw error when variable isn`t in envVars and fail on error is not set', async () => {
         configHelper._cache.has = sinon.fake.returns(false)
-        let expectedError = new Error('Failed to retrieve ' + varName + ' from ENV Vars')
+        const expectedError = new Error('Failed to retrieve ' + varName + ' from ENV Vars')
         let resultError
         try {
           configHelper.get(varName)
@@ -81,7 +81,7 @@ describe('ConfigHelper', () => {
       })
       it('should throw error when variable isn`t in envVars and fail on error is true', async () => {
         configHelper._cache.has = sinon.fake.returns(false)
-        let expectedError = new Error('Failed to retrieve ' + varName + ' from ENV Vars')
+        const expectedError = new Error('Failed to retrieve ' + varName + ' from ENV Vars')
         let resultError
         try {
           configHelper.get(varName, true)
@@ -94,7 +94,7 @@ describe('ConfigHelper', () => {
       })
       it('should return null when fail on error is fales and env var is not available', () => {
         configHelper._cache.has = sinon.fake.returns(false)
-        let result = configHelper.get(varName, false)
+        const result = configHelper.get(varName, false)
         expect(result).to.equal(null)
         expect(configHelper._cache.has).to.be.calledWithExactly(varName)
         expect(configHelper._log.info).to.be.calledWithExactly('Retrieved ' + varName + ' from ENV Vars, but it was unavailable')
