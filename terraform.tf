@@ -1,25 +1,25 @@
 variable "profile" {
-  type    = "string"
+  type    = string
   default = "jg"
 }
 
 variable "region" {
-  type    = "string"
+  type    = string
   default = "eu-west-2"
 }
 
 variable "circleci-iam-username" {
-  type = "string"
+  type = string
   default = "circleci"
 }
 
 variable "domain" {
-  type = "string"
+  type = string
 }
 
 provider "aws" {
-  region  = "${var.region}"
-  profile = "${var.profile}"
+  region  = var.region
+  profile = var.profile
 }
 
 terraform {
@@ -52,10 +52,10 @@ data "aws_ami" "amazon-linux-2" {
 }
 
 data "template_file" "server-cloud-init" {
-  template = "${file("${path.module}/cloudinit.cfg")}"
-   vars {
-     DOMAIN = "${var.domain}"
-   }
+  template = file("${path.module}/cloudinit.cfg")
+  vars = {
+   DOMAIN = var.domain
+  }
 }
 
 data "aws_vpc" "selected" {
@@ -65,7 +65,7 @@ data "aws_vpc" "selected" {
 resource "aws_security_group" "server_security_group" {
   name        = "train-tracker-api-server"
   description = "Allow 80 inbound traffic"
-  vpc_id      = "${data.aws_vpc.selected.id}"
+  vpc_id      = data.aws_vpc.selected.id
 
   ingress {
     from_port   = 80
@@ -101,16 +101,16 @@ data "aws_subnet" "subnet" {
 }
 
 resource "aws_instance" "server" {
-  ami           = "${data.aws_ami.amazon-linux-2.id}"
+  ami           = data.aws_ami.amazon-linux-2.id
   instance_type = "t3.nano"
-  iam_instance_profile = "${data.aws_iam_role.ec2instancerole.name}"
+  iam_instance_profile = data.aws_iam_role.ec2instancerole.name
 
-  user_data = "${data.template_file.server-cloud-init.rendered}"
+  user_data = data.template_file.server-cloud-init.rendered
 
-  subnet_id = "${data.aws_subnet.subnet.id}"
-  vpc_security_group_ids = ["${aws_security_group.server_security_group.id}"]
+  subnet_id = data.aws_subnet.subnet.id
+  vpc_security_group_ids = [aws_security_group.server_security_group.id]
 
-  tags {
+  tags = {
     Name = "train-tracker-api"
   }
 }
@@ -180,26 +180,26 @@ EOF
 }
 
 resource "aws_iam_user_policy_attachment" "circel-ci-deploy-access-attachment" {
-  user = "${var.circleci-iam-username}"
-  policy_arn = "${aws_iam_policy.circle-ci-deploy-access.arn}"
+  user = var.circleci-iam-username
+  policy_arn = aws_iam_policy.circle-ci-deploy-access.arn
 }
 
 data "aws_route53_zone" "domain-root" {
-  name = "${var.domain}"
+  name = var.domain
 }
 
 resource "aws_route53_record" "api-dns-a-record" {
   name = "api.train-tracker.${var.domain}"
   type = "A"
-  zone_id = "${data.aws_route53_zone.domain-root.zone_id}"
+  zone_id = data.aws_route53_zone.domain-root.zone_id
   ttl = "600"
-  records = ["${aws_instance.server.public_ip}"]
+  records = [aws_instance.server.public_ip]
 }
 
 resource "aws_route53_record" "api-dns-aaaa-record" {
   name = "api.train-tracker.${var.domain}"
   type = "AAAA"
-  zone_id = "${data.aws_route53_zone.domain-root.zone_id}"
+  zone_id = data.aws_route53_zone.domain-root.zone_id
   ttl = "600"
-  records = ["${aws_instance.server.ipv6_addresses}"]
+  records = [aws_instance.server.ipv6_addresses]
 }
