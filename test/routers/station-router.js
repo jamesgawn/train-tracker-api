@@ -73,7 +73,7 @@ describe('StationRouter', () => {
       }
     })
     it('should respond with full list of stations by calling NRDP service when cache is empty', async () => {
-      let expectedResult = [{
+      const expectedResult = [{
         pies: true
       }]
       railData.getStations = sinon.stub().resolves(expectedResult)
@@ -86,7 +86,7 @@ describe('StationRouter', () => {
       expect(next.callCount).to.equal(1)
     })
     it('should respond with full list of stations by returning cached version if available', async () => {
-      let expectedResult = [{
+      const expectedResult = [{
         pies: true
       }]
       stationRouter._cache.get = sinon.stub().returns(expectedResult)
@@ -96,7 +96,7 @@ describe('StationRouter', () => {
       expect(next.callCount).to.equal(1)
     })
     it('should respond with 500 error when exception occurs', async () => {
-      let err = {
+      const err = {
         error: true
       }
       railData.getStations = sinon.stub().rejects(err)
@@ -109,10 +109,10 @@ describe('StationRouter', () => {
 
   describe('_getStation', () => {
     it('should respond with station details for valid station', async () => {
-      let expectedResult = [{
+      const expectedResult = [{
         pies: true
       }]
-      let req = {
+      const req = {
         params: {
           crsCode: 'GNW'
         }
@@ -125,7 +125,7 @@ describe('StationRouter', () => {
     })
     it('should respond with 404 error for invalid station', async () => {
       rail.getStationDetails = sinon.stub().resolves([])
-      let req = {
+      const req = {
         params: {
           crsCode: 'BLAH'
         }
@@ -136,11 +136,11 @@ describe('StationRouter', () => {
       expect(next.callCount).to.be.equal(1)
     })
     it('should respond with 500 error when exception occurs', async () => {
-      let err = {
+      const err = {
         error: true
       }
       rail.getStationDetails = sinon.stub().rejects(err)
-      let req = {
+      const req = {
         params: {
           crsCode: 'BLAH'
         }

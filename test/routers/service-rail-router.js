@@ -63,9 +63,9 @@ describe('ServiceRaillRouter', () => {
   describe('methods', () => {
     describe('_get', () => {
       it('should respond with a response for a valid request to the method ', async () => {
-        let expectedResult = require('./exampleData/departureBoardWithDetails')
+        const expectedResult = require('./exampleData/departureBoardWithDetails')
         rail.getDepartureBoard.resolves(expectedResult)
-        let req = {
+        const req = {
           params: {
             crsCode: 'GNW'
           }
@@ -76,11 +76,11 @@ describe('ServiceRaillRouter', () => {
         expect(next.callCount).to.be.equal(1)
       })
       it('should respond with 500 error when exception occurs', async () => {
-        let err = {
+        const err = {
           error: true
         }
         rail.getDepartureBoard.rejects(err)
-        let req = {
+        const req = {
           params: {
             crsCode: 'BLAH'
           }
@@ -93,9 +93,9 @@ describe('ServiceRaillRouter', () => {
     })
     describe('_getWithDestination', () => {
       it('should respond with a response for a valid request to the method', async () => {
-        let expectedResult = require('./exampleData/departureBoardWithDetails')
+        const expectedResult = require('./exampleData/departureBoardWithDetails')
         rail.getDepartureBoard.resolves(expectedResult)
-        let req = {
+        const req = {
           params: {
             crsCode: 'GNW',
             destination: 'CST'
@@ -109,11 +109,11 @@ describe('ServiceRaillRouter', () => {
         expect(next.callCount).to.be.equal(1)
       })
       it('should respond with 500 error when exception occurs', async () => {
-        let err = {
+        const err = {
           error: true
         }
         rail.getDepartureBoard.rejects(err)
-        let req = {
+        const req = {
           params: {
             crsCode: 'BLAH',
             destination: 'CST'

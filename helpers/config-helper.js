@@ -9,10 +9,10 @@ class ConfigHelper {
       this._log.info('Retrieved ' + name + ' from Cache')
       return this._cache.get(name)
     } else {
-      let value = process.env[name]
+      const value = process.env[name]
       if (typeof value === 'undefined') {
         if (typeof errWhenMissing === 'undefined' || errWhenMissing) {
-          let err = new Error('Failed to retrieve ' + name + ' from ENV Vars')
+          const err = new Error('Failed to retrieve ' + name + ' from ENV Vars')
           this._log.error({
             err: err
           }, 'Failed to retrieve ' + name + ' from ENV Vars')

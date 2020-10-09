@@ -25,7 +25,7 @@ describe('AWSHelper', () => {
   describe('getParameter', () => {
     it('should retrieve for valid parameter', async () => {
       awsHelper._ssm = ssm
-      let expectedResult = {
+      const expectedResult = {
         Parameters: [
           {
             Value: 'pies'
@@ -33,12 +33,12 @@ describe('AWSHelper', () => {
         ]
       }
       ssm.getParameters = sinon.fake.yields(null, expectedResult)
-      let result = await awsHelper.getParameter('test')
+      const result = await awsHelper.getParameter('test')
       expect(result).to.be.equal('pies')
     })
     it('should reject when error occurs', async () => {
       awsHelper._ssm = ssm
-      let expectedResult = {
+      const expectedResult = {
         error: true
       }
       ssm.getParameters = sinon.fake.yields(expectedResult, null)

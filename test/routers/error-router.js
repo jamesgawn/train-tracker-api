@@ -55,7 +55,7 @@ describe('ErrorRouter', () => {
 
   describe('uncaughtErrorHandler', () => {
     it('should log error and respond with error json response', async () => {
-      let err = {
+      const err = {
         error: true
       }
 

@@ -11,8 +11,8 @@ class ServiceRailRouter extends BaseRailRouter {
 
   async _get (req, res, next) {
     try {
-      let crsCode = req.params.crsCode
-      let board = await this._method(crsCode)
+      const crsCode = req.params.crsCode
+      const board = await this._method(crsCode)
       this._responseSender.success('get', req, res, board)
       next()
     } catch (err) {
@@ -23,9 +23,9 @@ class ServiceRailRouter extends BaseRailRouter {
 
   async _getWithDestination (req, res, next) {
     try {
-      let crsCode = req.params.crsCode
-      let destination = req.params.destination
-      let board = await this._method(crsCode, {
+      const crsCode = req.params.crsCode
+      const destination = req.params.destination
+      const board = await this._method(crsCode, {
         destination: destination
       })
       this._responseSender.success('getWithDestination', req, res, board)

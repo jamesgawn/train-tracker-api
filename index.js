@@ -20,10 +20,10 @@ function normalizePort (val) {
 const port = normalizePort(process.env.PORT || '3000')
 
 const fs = require('fs')
-let version = fs.readFileSync('VERSION').toString().replace('\n', '')
+const version = fs.readFileSync('VERSION').toString().replace('\n', '')
 
 const Bunyan = require('bunyan')
-let log = new Bunyan({
+const log = new Bunyan({
   name: 'train-tracker-api',
   serializers: Bunyan.stdSerializers,
   src: true,
@@ -31,9 +31,9 @@ let log = new Bunyan({
 })
 
 const ConfigHelper = require('./helpers/config-helper')
-let configHelper = new ConfigHelper(log)
+const configHelper = new ConfigHelper(log)
 
-let corsAllowedOrigins = configHelper.get('CORS_ALLOWED_ORIGINS', false)
+const corsAllowedOrigins = configHelper.get('CORS_ALLOWED_ORIGINS', false)
 if (corsAllowedOrigins !== null) {
   log.info('Setting Access-Control-Allow-Origin to ' + corsAllowedOrigins)
   app.use((req, res, next) => {
@@ -63,7 +63,7 @@ app.use('/status', new HealthRouter(Express.Router(), log).router)
 app.get('/favicon.ico', (req, res) => res.status(204))
 
 const ErrorRouter = require('./routers/error-router')
-let errorRouter = new ErrorRouter(Express.Router(), log)
+const errorRouter = new ErrorRouter(Express.Router(), log)
 app.use(errorRouter.uncaughtErrorHandler.bind(errorRouter))
 app.use(errorRouter.uriNotFound.bind(errorRouter))
 
