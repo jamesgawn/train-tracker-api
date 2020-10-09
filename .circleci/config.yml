@@ -126,16 +126,16 @@ workflows:
       - lint:
           requires:
             - build
-      - dockerise:
-          requires:
-            - test
-            - lint
-          filters:
-            branches:
-              only: master
-      - deploy:
-          requires:
-            - dockerise
-          filters:
-            branches:
-              only: master
+#      - dockerise:
+#          requires:
+#            - test
+#            - lint
+#          filters:
+#            branches:
+#              only: master
+#      - deploy:
+#          requires:
+#            - dockerise
+#          filters:
+#            branches:
+#              only: master
