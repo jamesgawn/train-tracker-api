@@ -24,7 +24,7 @@
     "standard": "^14.3.4"
   },
   "dependencies": {
-    "aws-sdk": "^2.770.0",
+    "aws-sdk": "^2.814.0",
     "bunyan": "^1.8.14",
     "express": "^4.17.1",
     "national-rail-darwin-promise": "^1.0.4",
