@@ -26,7 +26,7 @@
   "dependencies": {
     "aws-sdk": "^2.770.0",
     "bunyan": "^1.8.14",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "national-rail-darwin-promise": "^1.0.4",
     "national-rail-data": "^1.0.1",
     "node-cache": "^5.1.2"
